@@ -5,7 +5,8 @@ class BoostIostreamsConan(ConanFile):
     version = "1.64.0"
     generators = "boost" 
     settings = "os", "arch", "compiler", "build_type"
-    url = "https://github.com/boostorg/iostreams"
+    url = "https://github.com/bincrafters/conan-boost-iostreams"
+    source_url = "https://github.com/boostorg/iostreams"
     description = "Please visit http://www.boost.org/doc/libs/1_64_0/libs/libraries.htm"
     license = "www.boost.org/users/license.html"
     lib_short_name = "iostreams"
@@ -32,7 +33,7 @@ class BoostIostreamsConan(ConanFile):
                       
     def source(self):
         self.run("git clone --depth=50 --branch=boost-{0} {1}.git"
-                 .format(self.version, self.url))
+                 .format(self.version, self.source_url))
 
     def build(self):
         boost_build = self.deps_cpp_info["Boost.Build"]
@@ -57,5 +58,5 @@ class BoostIostreamsConan(ConanFile):
         self.copy(pattern="*", dst="lib", src=lib_dir)
 
     def package_info(self):
-        self.cpp_info.libs = ["boost_%s"%(self.lib_short_name)]
+        self.cpp_info.libs = self.collect_libs()
 

@@ -1,5 +1,6 @@
 from conans import ConanFile, tools, os
 
+
 class BoostIostreamsConan(ConanFile):
     name = "Boost.Iostreams"
     version = "1.64.0"
@@ -10,6 +11,8 @@ class BoostIostreamsConan(ConanFile):
     description = "Please visit http://www.boost.org/doc/libs/1_64_0/libs/libraries.htm"
     license = "www.boost.org/users/license.html"
     lib_short_names = ["iostreams"]
+    options = {"shared": [True, False]}
+    default_options = "shared=False"
     build_requires = "Boost.Generator/0.0.1@bincrafters/testing"
     requires =  "Boost.Assert/1.64.0@bincrafters/testing", \
                       "Boost.Bind/1.64.0@bincrafters/testing", \

@@ -11,8 +11,8 @@ class BoostIostreamsConan(ConanFile):
     description = "Please visit http://www.boost.org/doc/libs/1_64_0/libs/libraries.htm"
     license = "www.boost.org/users/license.html"
     lib_short_names = ["iostreams"]
-    options = {"shared": [True, False]}
-    default_options = "shared=False"
+    options = {"shared": [True, False], 'use_zlib': [True, False], 'use_bzip2': [True, False]}
+    default_options = "shared=False", "use_zlib=True", "use_bzip2=True"
     build_requires = "Boost.Generator/0.0.1@bincrafters/testing"
     requires =  "Boost.Assert/1.64.0@bincrafters/testing", \
                       "Boost.Bind/1.64.0@bincrafters/testing", \
@@ -34,9 +34,29 @@ class BoostIostreamsConan(ConanFile):
 
                       #assert1 bind3 config0 core2 detail5 function5 integer3 mpl5 preprocessor0 random9 range7 regex6 smart_ptr4 static_assert1 throw_exception2 type_traits3 utility5
                       
+    def build_requirements(self):
+        if self.options.shared:
+            if self.options.use_bzip2:
+                self.build_requires("zlib/1.2.11@conan/stable")
+            if self.options.use_zlib:
+                self.build_requires("bzip2/1.0.6@conan/stable")
+
+    def requirements(self):
+        if not self.options.shared:
+            if self.options.use_bzip2:
+                self.requires("zlib/1.2.11@conan/stable")
+            if self.options.use_zlib:
+                self.requires("bzip2/1.0.6@conan/stable")
+
+    def configure(self):
+        if self.options.use_zlib:
+            self.options["zlib"].shared = False
+        if self.options.use_zlib:
+            self.options["bzip"].shared = False
+
     def source(self):
         boostorg_github = "https://github.com/boostorg"
-        archive_name = "boost-" + self.version  
+        archive_name = "boost-" + self.version
         for lib_short_name in self.lib_short_names:
             tools.get("{0}/{1}/archive/{2}.tar.gz"
                 .format(boostorg_github, lib_short_name, archive_name))

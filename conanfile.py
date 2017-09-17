@@ -13,7 +13,7 @@ class BoostIostreamsConan(ConanFile):
     lib_short_names = ["iostreams"]
     options = {"shared": [True, False], 'use_zlib': [True, False], 'use_bzip2': [True, False]}
     default_options = "shared=False", "use_zlib=True", "use_bzip2=True"
-    build_requires = "Boost.Generator/0.0.1@bincrafters/testing"
+    build_requires = "Boost.Generator/1.64.0@bincrafters/testing"
     requires =  "Boost.Assert/1.64.0@bincrafters/testing", \
                       "Boost.Bind/1.64.0@bincrafters/testing", \
                       "Boost.Config/1.64.0@bincrafters/testing", \

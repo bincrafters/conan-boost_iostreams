@@ -34,25 +34,18 @@ class BoostIostreamsConan(ConanFile):
 
                       #assert1 bind3 config0 core2 detail5 function5 integer3 mpl5 preprocessor0 random9 range7 regex6 smart_ptr4 static_assert1 throw_exception2 type_traits3 utility5
                       
-    def build_requirements(self):
-        if self.options.shared:
-            if self.options.use_bzip2:
-                self.build_requires("zlib/1.2.11@conan/stable")
-            if self.options.use_zlib:
-                self.build_requires("bzip2/1.0.6@conan/stable")
-
     def requirements(self):
         if not self.options.shared:
             if self.options.use_bzip2:
-                self.requires("zlib/1.2.11@conan/stable")
-            if self.options.use_zlib:
                 self.requires("bzip2/1.0.6@conan/stable")
+            if self.options.use_zlib:
+                self.requires("zlib/1.2.11@conan/stable")
 
     def configure(self):
+        if self.options.use_bzip2:
+            self.options["bzip"].shared = False
         if self.options.use_zlib:
             self.options["zlib"].shared = False
-        if self.options.use_zlib:
-            self.options["bzip"].shared = False
 
     def source(self):
         boostorg_github = "https://github.com/boostorg"

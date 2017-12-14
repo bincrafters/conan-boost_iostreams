@@ -28,13 +28,12 @@ class BoostIostreamsConan(ConanFile):
         "Boost.Utility/1.65.1@bincrafters/testing"
 
     def requirements(self):
-        if not self.options.shared:
-            if self.options.use_bzip2:
-                self.requires("bzip2/1.0.6@conan/stable")
-            if self.options.use_zlib:
-                self.requires("zlib/1.2.11@conan/stable")
-            if self.options.use_lzma:
-                self.requires("lzma/5.2.3@bincrafters/stable")
+        if self.options.use_bzip2:
+            self.requires("bzip2/1.0.6@conan/stable")
+        if self.options.use_zlib:
+            self.requires("zlib/1.2.11@conan/stable")
+        if self.options.use_lzma:
+            self.requires("lzma/5.2.3@bincrafters/stable")
 
     def configure(self):
         if self.options.use_bzip2:

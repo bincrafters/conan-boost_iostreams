@@ -7,7 +7,7 @@ from conans import ConanFile, tools
 class BoostIostreamsConan(ConanFile):
     name = "boost_iostreams"
     version = "1.66.0"
-    url = "https://github.com/bincrafters/conan-boost-iostreams"
+    url = "https://github.com/bincrafters/conan-boost_iostreams"
 
     lib_short_names = ["iostreams"]
     is_header_only = False

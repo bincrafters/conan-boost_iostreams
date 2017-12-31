@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\jerry\git-boost\1.66.0-testing\conan-boost-iostreams\test_package\build\a5d6424b3e1af96dd513d16bb70e94c7244b3439\CMakeFiles\41b49198e554b629118ba923dfc6d7ca\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{41BE7DB6-2E4C-3190-BA75-660C216B725C}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

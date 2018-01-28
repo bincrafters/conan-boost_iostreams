@@ -14,7 +14,7 @@ class BoostIostreamsConan(ConanFile):
     is_header_only = False
 
     options = {"shared": [True, False], 'use_zlib': [True, False], 'use_bzip2': [True, False], 'use_lzma': [True, False]}
-    default_options = "shared=False", "use_zlib=False", "use_bzip2=False", "use_lzma=False"
+    default_options = "shared=False", "use_zlib=True", "use_bzip2=True", "use_lzma=True"
 
     requires = (
         "boost_package_tools/1.66.0@bincrafters/stable",
@@ -52,7 +52,12 @@ class BoostIostreamsConan(ConanFile):
             self.options["zlib"].shared = False
         if self.options.use_lzma:
             self.options["lzma"].shared = False
-
+            
+    def b2_options(self):
+      if self.options.use_lzma:
+        return "define=LZMA_STATIC"
+      return ""
+      
     # BEGIN
 
     description = "Please visit http://www.boost.org/doc/libs/1_66_0"

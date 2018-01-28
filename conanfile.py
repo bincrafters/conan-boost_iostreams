@@ -53,10 +53,10 @@ class BoostIostreamsConan(ConanFile):
         if self.options.use_lzma:
             self.options["lzma"].shared = False
             
-    def b2_options(self):
-      if self.options.use_lzma:
-        return "define=LZMA_STATIC"
-      return ""
+    def b2_options(self, lib_name=None):
+        if self.options.use_lzma:
+            return "define=LZMA_API_STATIC"
+        return ""
       
     # BEGIN
 

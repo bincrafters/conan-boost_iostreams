@@ -8,32 +8,33 @@ class BoostIostreamsConan(ConanFile):
     name = "boost_iostreams"
     version = "1.66.0"
     url = "https://github.com/bincrafters/conan-boost_iostreams"
-
+    author = "Bincrafters <bincrafters@gmail.com>"
+    exports = ["LICENSE.md"]
     lib_short_names = ["iostreams"]
     is_header_only = False
 
     options = {"shared": [True, False], 'use_zlib': [True, False], 'use_bzip2': [True, False], 'use_lzma': [True, False]}
-    default_options = "shared=False", "use_zlib=True", "use_bzip2=True", "use_lzma=True"
+    default_options = "shared=False", "use_zlib=False", "use_bzip2=False", "use_lzma=False"
 
     requires = (
-        "boost_package_tools/1.66.0@bincrafters/testing",
-        "boost_assert/1.66.0@bincrafters/testing",
-        "boost_bind/1.66.0@bincrafters/testing",
-        "boost_config/1.66.0@bincrafters/testing",
-        "boost_core/1.66.0@bincrafters/testing",
-        "boost_detail/1.66.0@bincrafters/testing",
-        "boost_function/1.66.0@bincrafters/testing",
-        "boost_integer/1.66.0@bincrafters/testing",
-        "boost_mpl/1.66.0@bincrafters/testing",
-        "boost_preprocessor/1.66.0@bincrafters/testing",
-        "boost_random/1.66.0@bincrafters/testing",
-        "boost_range/1.66.0@bincrafters/testing",
-        "boost_regex/1.66.0@bincrafters/testing",
-        "boost_smart_ptr/1.66.0@bincrafters/testing",
-        "boost_static_assert/1.66.0@bincrafters/testing",
-        "boost_throw_exception/1.66.0@bincrafters/testing",
-        "boost_type_traits/1.66.0@bincrafters/testing",
-        "boost_utility/1.66.0@bincrafters/testing"
+        "boost_package_tools/1.66.0@bincrafters/stable",
+        "boost_assert/1.66.0@bincrafters/stable",
+        "boost_bind/1.66.0@bincrafters/stable",
+        "boost_config/1.66.0@bincrafters/stable",
+        "boost_core/1.66.0@bincrafters/stable",
+        "boost_detail/1.66.0@bincrafters/stable",
+        "boost_function/1.66.0@bincrafters/stable",
+        "boost_integer/1.66.0@bincrafters/stable",
+        "boost_mpl/1.66.0@bincrafters/stable",
+        "boost_preprocessor/1.66.0@bincrafters/stable",
+        "boost_random/1.66.0@bincrafters/stable",
+        "boost_range/1.66.0@bincrafters/stable",
+        "boost_regex/1.66.0@bincrafters/stable",
+        "boost_smart_ptr/1.66.0@bincrafters/stable",
+        "boost_static_assert/1.66.0@bincrafters/stable",
+        "boost_throw_exception/1.66.0@bincrafters/stable",
+        "boost_type_traits/1.66.0@bincrafters/stable",
+        "boost_utility/1.66.0@bincrafters/stable"
     )
     
     def requirements(self):
@@ -51,7 +52,12 @@ class BoostIostreamsConan(ConanFile):
             self.options["zlib"].shared = False
         if self.options.use_lzma:
             self.options["lzma"].shared = False
-
+            
+    def b2_options(self, lib_name=None):
+        if self.options.use_lzma:
+            return "define=LZMA_API_STATIC"
+        return ""
+      
     # BEGIN
 
     description = "Please visit http://www.boost.org/doc/libs/1_66_0"
@@ -59,7 +65,7 @@ class BoostIostreamsConan(ConanFile):
     short_paths = True
     generators = "boost"
     settings = "os", "arch", "compiler", "build_type"
-    build_requires = "boost_generator/1.66.0@bincrafters/testing"
+    build_requires = "boost_generator/1.66.0@bincrafters/stable"
 
     def package_id(self):
         getattr(self, "package_id_additional", lambda:None)()

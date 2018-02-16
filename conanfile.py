@@ -44,14 +44,6 @@ class BoostIostreamsConan(ConanFile):
             self.requires("zlib/1.2.11@conan/stable")
         if self.options.use_lzma:
             self.requires("lzma/5.2.3@bincrafters/stable")
-
-    def configure(self):
-        if self.options.use_bzip2:
-            self.options["bzip"].shared = False
-        if self.options.use_zlib:
-            self.options["zlib"].shared = False
-        if self.options.use_lzma:
-            self.options["lzma"].shared = False
             
     def b2_options(self, lib_name=None):
         if self.options.use_lzma:

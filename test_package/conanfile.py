@@ -9,11 +9,13 @@ class TestPackageConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     generators = "cmake"
 
+    def requirements(self):
+        boost_deps = ['assert', 'bind', 'config', 'core', 'detail', 'function', 'integer', 'iostreams', 'iterator', 'mpl', 'preprocessor', 'random', 'range', 'regex', 'smart_ptr', 'static_assert', 'throw_exception', 'type_traits', 'utility']
+        for lib in boost_deps:
+            self.requires("boost_" + lib + "/1.67.0@" + self.user + "/" + self.channel)
+
     def build(self):
         cmake = CMake(self)
-        cmake.definitions['WITH_LZMA'] = self.options['Boost.Iostreams'].use_lzma;
-        cmake.definitions['WITH_ZLIB'] = self.options['Boost.Iostreams'].use_zlib;
-        cmake.definitions['WITH_BZIP2'] = self.options['Boost.Iostreams'].use_bzip2;
         cmake.configure()
         cmake.build()
 

@@ -56,6 +56,14 @@ class BoostIostreamsConan(ConanFile):
         for dep_name in boost_deps_only:
             self.info.requires[dep_name].full_version_mode()
 
+    def package_info_additional(self):
+        if self.options.use_bzip2:
+            self.cpp_info.defines.append("CONAN_BOOST_IOSTREAMS_USE_BZIP2=1")
+        if self.options.use_zlib:
+            self.cpp_info.defines.append("CONAN_BOOST_IOSTREAMS_USE_ZLIB=1")
+        if self.options.use_lzma:
+            self.cpp_info.defines.append("CONAN_BOOST_IOSTREAMS_USE_LZMA=1")
+
     # BEGIN
 
     url = "https://github.com/bincrafters/conan-boost_iostreams"

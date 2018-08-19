@@ -63,6 +63,8 @@ class BoostIostreamsConan(ConanFile):
             self.cpp_info.defines.append("CONAN_BOOST_IOSTREAMS_USE_ZLIB=1")
         if self.options.use_lzma:
             self.cpp_info.defines.append("CONAN_BOOST_IOSTREAMS_USE_LZMA=1")
+        if self.options.shared:
+            self.cpp_info.defines.append("BOOST_IOSTREAMS_DYN_LINK=1")
 
     # BEGIN
 

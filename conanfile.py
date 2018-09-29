@@ -1,41 +1,38 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from conans import ConanFile, tools
+from conans import python_requires
 
 
-class BoostIostreamsConan(ConanFile):
+base = python_requires("boost_base/1.67.0@bincrafters/testing")
+
+class BoostIostreamsConan(base.BoostBaseConan):
     name = "boost_iostreams"
-    version = "1.67.0"
-    author = "Bincrafters <bincrafters@gmail.com>"
-    exports = ["LICENSE.md"]
+    url = "https://github.com/bincrafters/conan-boost_iostreams"
     lib_short_names = ["iostreams"]
-    is_header_only = False
-
     options = {"shared": [True, False], 'use_zlib': [True, False], 'use_bzip2': [True, False], 'use_lzma': [True, False]}
     default_options = "shared=False", "use_zlib=True", "use_bzip2=True", "use_lzma=True"
-
-    requires = (
-        "boost_assert/1.67.0@bincrafters/testing",
-        "boost_bind/1.67.0@bincrafters/testing",
-        "boost_config/1.67.0@bincrafters/testing",
-        "boost_core/1.67.0@bincrafters/testing",
-        "boost_detail/1.67.0@bincrafters/testing",
-        "boost_function/1.67.0@bincrafters/testing",
-        "boost_integer/1.67.0@bincrafters/testing",
-        "boost_iterator/1.67.0@bincrafters/testing",
-        "boost_mpl/1.67.0@bincrafters/testing",
-        "boost_package_tools/1.67.0@bincrafters/testing",
-        "boost_preprocessor/1.67.0@bincrafters/testing",
-        "boost_random/1.67.0@bincrafters/testing",
-        "boost_range/1.67.0@bincrafters/testing",
-        "boost_regex/1.67.0@bincrafters/testing",
-        "boost_smart_ptr/1.67.0@bincrafters/testing",
-        "boost_static_assert/1.67.0@bincrafters/testing",
-        "boost_throw_exception/1.67.0@bincrafters/testing",
-        "boost_type_traits/1.67.0@bincrafters/testing",
-        "boost_utility/1.67.0@bincrafters/testing"
-    )
+    b2_defines = ["LZMA_API_STATIC"]
+    b2_requires = [
+        "boost_assert",
+        "boost_bind",
+        "boost_config",
+        "boost_core",
+        "boost_detail",
+        "boost_function",
+        "boost_integer",
+        "boost_iterator",
+        "boost_mpl",
+        "boost_preprocessor",
+        "boost_random",
+        "boost_range",
+        "boost_regex",
+        "boost_smart_ptr",
+        "boost_static_assert",
+        "boost_throw_exception",
+        "boost_type_traits",
+        "boost_utility"
+    ]
 
     def requirements(self):
         if self.options.use_bzip2:
@@ -44,17 +41,6 @@ class BoostIostreamsConan(ConanFile):
             self.requires("zlib/1.2.11@conan/stable")
         if self.options.use_lzma:
             self.requires("lzma/5.2.3@bincrafters/stable")
-
-    def b2_options(self, lib_name=None):
-        if self.options.use_lzma:
-            return "define=LZMA_API_STATIC"
-        return ""
-
-    def package_id_additional(self):
-        boost_deps_only = [dep_name for dep_name in self.info.requires.pkg_names if dep_name.startswith("boost_")]
-
-        for dep_name in boost_deps_only:
-            self.info.requires[dep_name].full_version_mode()
 
     def package_info_additional(self):
         if self.options.use_bzip2:
@@ -66,41 +52,3 @@ class BoostIostreamsConan(ConanFile):
         if self.options.shared:
             self.cpp_info.defines.append("BOOST_IOSTREAMS_DYN_LINK=1")
 
-    # BEGIN
-
-    url = "https://github.com/bincrafters/conan-boost_iostreams"
-    description = "Please visit http://www.boost.org/doc/libs/1_67_0"
-    license = "BSL-1.0"
-    short_paths = True
-    generators = "boost"
-    settings = "os", "arch", "compiler", "build_type"
-    build_requires = "boost_generator/1.67.0@bincrafters/testing"
-
-    def package_id(self):
-        getattr(self, "package_id_additional", lambda:None)()
-
-    def source(self):
-        with tools.pythonpath(self):
-            import boost_package_tools  # pylint: disable=F0401
-            boost_package_tools.source(self)
-        getattr(self, "source_additional", lambda:None)()
-
-    def build(self):
-        with tools.pythonpath(self):
-            import boost_package_tools  # pylint: disable=F0401
-            boost_package_tools.build(self)
-        getattr(self, "build_additional", lambda:None)()
-
-    def package(self):
-        with tools.pythonpath(self):
-            import boost_package_tools  # pylint: disable=F0401
-            boost_package_tools.package(self)
-        getattr(self, "package_additional", lambda:None)()
-
-    def package_info(self):
-        with tools.pythonpath(self):
-            import boost_package_tools  # pylint: disable=F0401
-            boost_package_tools.package_info(self)
-        getattr(self, "package_info_additional", lambda:None)()
-
-    # END

@@ -34,7 +34,7 @@ class BoostIostreamsConan(base.BoostBaseConan):
         "boost_utility"
     ]
 
-    def requirements(self):
+    def requirements_additional(self):
         if self.options.use_bzip2:
             self.requires("bzip2/1.0.6@conan/stable")
         if self.options.use_zlib:

@@ -40,7 +40,7 @@ class BoostIostreamsConan(base.BoostBaseConan):
         if self.options.use_zlib:
             self.requires("zlib/1.2.11@conan/stable")
         if self.options.use_lzma:
-            self.requires("lzma/5.2.3@bincrafters/stable")
+            self.requires("lzma/5.2.4@bincrafters/stable")
 
     def package_info_additional(self):
         if self.options.use_bzip2:

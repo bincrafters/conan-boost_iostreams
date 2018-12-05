@@ -31,10 +31,10 @@ class BoostIostreamsConan(base.BoostBaseConan):
 
     def package_info_additional(self):
         if self.options.use_bzip2:
-            self.cpp_info.defines.append("CONAN_BOOST_IOSTREAMS_USE_BZIP2=1")
+            self.cpp_info.defines.append("BOOST_IOSTREAMS_USE_BZIP2=1")
         if self.options.use_zlib:
-            self.cpp_info.defines.append("CONAN_BOOST_IOSTREAMS_USE_ZLIB=1")
+            self.cpp_info.defines.append("BOOST_IOSTREAMS_USE_ZLIB=1")
         if self.options.use_lzma:
-            self.cpp_info.defines.append("CONAN_BOOST_IOSTREAMS_USE_LZMA=1")
+            self.cpp_info.defines.append("BOOST_IOSTREAMS_USE_LZMA=1")
         if self.options.shared:
             self.cpp_info.defines.append("BOOST_IOSTREAMS_DYN_LINK=1")

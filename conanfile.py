@@ -8,6 +8,7 @@ base = python_requires("boost_base/1.67.0@bincrafters/testing")
 
 class BoostIostreamsConan(base.BoostBaseConan):
     name = "boost_iostreams"
+    version = "1.67.0"
     url = "https://github.com/bincrafters/conan-boost_iostreams"
     lib_short_names = ["iostreams"]
     options = {"shared": [True, False], 'use_zlib': [True, False], 'use_bzip2': [True, False], 'use_lzma': [True, False]}
